@@ -1,8 +1,13 @@
-<mat-toolbar>
-    <span>Sistema de cadastros</span>
+<mat-toolbar color="primary">
+    <span routerLink="/">Sistema de cadastros</span>
     <span class="spacer"></span>
-    <a>Consulta</a>
-    <a>Cadastro</a>
+    <a routerLink="/consulta" >
+        <mat-icon fontIcon="search"></mat-icon>
+        Consulta
+    </a>
+    <a routerLink="/cadastro" >
+        <mat-icon fontIcon="feed"></mat-icon>
+        Cadastro
+    </a>
 </mat-toolbar>
-<button mat-flat-button>Clique me </button>
 <router-outlet></router-outlet>
