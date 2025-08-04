@@ -5,7 +5,7 @@ export class Cliente{
     nome?: string;
     email?: string;
     cpf?: string;
-    dataDeNascimento?: string;
+    dataNascimento?: string;
 
     static newUser(){
         const cliente = new Cliente();

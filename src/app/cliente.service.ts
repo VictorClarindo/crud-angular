@@ -16,7 +16,18 @@ export class ClienteService {
     localStorage.setItem(ClienteService.REPO_CLIENTES, JSON.stringify(storage));
   }
 
-  obterStorage(): Cliente[]{
+  pesquisarClientes(nomeCliente: string): Cliente[]{
+    
+    const clientes = this.obterStorage();
+    console.log("entrou em service ", clientes);
+
+    if(!nomeCliente) return clientes;
+    const nomeClienteLower = nomeCliente.toLowerCase();
+
+    return clientes.filter(cliente => cliente.nome?.toLowerCase().indexOf(nomeClienteLower) !== -1);
+  }
+
+  private obterStorage(): Cliente[]{
     const repositorioClientes = localStorage.getItem(ClienteService.REPO_CLIENTES);
 
     if(repositorioClientes){
