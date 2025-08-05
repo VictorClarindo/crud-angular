@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -8,6 +8,8 @@ import { MatIconModule} from '@angular/material/icon';
 import { MatButtonModule} from '@angular/material/button';
 import { Cliente } from './cliente';
 import { ClienteService } from '../cliente.service';
+import { ActivatedRoute } from '@angular/router';
+import { query } from '@angular/animations';
 
 
 @Component({
@@ -25,14 +27,30 @@ import { ClienteService } from '../cliente.service';
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.scss'
 })
-export class FormularioComponent {
-
-  constructor(private service: ClienteService ){}
-  
+export class FormularioComponent implements OnInit{
   cliente: Cliente = Cliente.newUser();
+  atualizando: boolean = false;
+
+  constructor(
+    private service: ClienteService,
+    private route: ActivatedRoute
+   ){}
+
+   ngOnInit(): void {
+     this.route.queryParamMap.subscribe( (query: any) => {
+      const params = query['params'];
+      const id = params['id'];
+
+      if(id){
+        this.atualizando = true;
+      }
+     })
+   }
+  
   
   salvar(){
     this.service.salvar(this.cliente);
+    this.cliente = Cliente.newUser();
   }
 
 
