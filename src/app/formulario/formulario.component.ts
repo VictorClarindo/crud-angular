@@ -37,14 +37,20 @@ export class FormularioComponent implements OnInit{
    ){}
 
    ngOnInit(): void {
-     this.route.queryParamMap.subscribe( (query: any) => {
-      const params = query['params'];
-      const id = params['id'];
+    this.route.queryParamMap.subscribe(
+      (query: any) => {
+        const params = query['params'];
+        const id = params['id'];
 
-      if(id){
-        this.atualizando = true;
+        if(id){
+          const clienteEncontrado = this.service.pesquisarClientePorId(id);
+          if(clienteEncontrado){
+            this.atualizando = true;
+            this.cliente = clienteEncontrado;
+          }
+        }
       }
-     })
+    )
    }
   
   

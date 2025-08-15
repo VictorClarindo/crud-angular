@@ -19,12 +19,17 @@ export class ClienteService {
   pesquisarClientes(nomeCliente: string): Cliente[]{
     
     const clientes = this.obterStorage();
-    console.log("entrou em service ", clientes);
 
     if(!nomeCliente) return clientes;
     const nomeClienteLower = nomeCliente.toLowerCase();
 
     return clientes.filter(cliente => cliente.nome?.toLowerCase().indexOf(nomeClienteLower) !== -1);
+  }
+
+  pesquisarClientePorId(id: string): Cliente | undefined{
+    const clientes = this.obterStorage();
+
+    return clientes.find(cliente => cliente.id === id);
   }
 
   private obterStorage(): Cliente[]{
