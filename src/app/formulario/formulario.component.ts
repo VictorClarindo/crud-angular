@@ -8,7 +8,7 @@ import { MatIconModule} from '@angular/material/icon';
 import { MatButtonModule} from '@angular/material/button';
 import { Cliente } from './cliente';
 import { ClienteService } from '../cliente.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { query } from '@angular/animations';
 
 
@@ -30,10 +30,12 @@ import { query } from '@angular/animations';
 export class FormularioComponent implements OnInit{
   cliente: Cliente = Cliente.newUser();
   atualizando: boolean = false;
+  deletando: boolean = false;
 
   constructor(
     private service: ClienteService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
    ){}
 
    ngOnInit(): void {
@@ -55,10 +57,23 @@ export class FormularioComponent implements OnInit{
   
   
   salvar(){
-    this.service.salvar(this.cliente);
-    this.cliente = Cliente.newUser();
+    if(!this.atualizando){
+      this.service.salvar(this.cliente);
+      this.cliente = Cliente.newUser();
+    } else{
+      this.service.atualizar(this.cliente);
+      this.router.navigate(['/consulta']);
+    }
   }
 
+  preparaDeletar(){
+    this.deletando = true;
+  }
 
+  deletar(){
+    this.service.deletar(this.cliente);
+    this.deletando = false;
+    this.router.navigate(['/consulta']);
+  }
 
 }
