@@ -36,11 +36,31 @@
 
                         <div class="full-width" fxLayout="column" fxFlex="400px">
                             <mat-form-field>
-                                <mat-label>Data de nascimento: </mat-label>
-                                <input type="text" placeholder="Ex: 12/12/2012" matInput name="dataDeNascimento" [(ngModel)]="cliente.dataNascimento">
+                                <mat-label>UF: *</mat-label>
+                                <mat-select [(value)]="cliente.uf" (selectionChange)="carregarMunicipios($event)">
+                                    <mat-option *ngFor="let uf of estados" [value]="uf.sigla">
+                                        {{uf.sigla}} - {{uf.nome}}
+                                    </mat-option>
+                                </mat-select>
                             </mat-form-field>
                         </div>
                     </div>
+
+                    @if(municipios){
+                        <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="16px">
+                            <div fxLayout="column" fxFlex="384px">
+                                <mat-form-field>
+                                    <mat-label>Município: *</mat-label>
+                                    <mat-select [(value)]="cliente.municipio">
+                                        <mat-option *ngFor="let m of municipios" [value]="m.nome">
+                                            {{m.nome}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    }
                 </mat-card-content>
                 <mat-card-actions>
                     @if (!atualizando) {
@@ -50,22 +70,22 @@
                         </button>
                     }
                     @else {
-                        <button mat-raised-button color="primary">
+                        <button mat-raised-button color="primary" (click)="salvar()">
                             <mat-icon fontIcon="refresh"></mat-icon>
                             Atualizar
                         </button>
                     }
-                    @if(!deletar){
-                        <button mat-raised-button color="accent" class="ml-5" (click)="preparaDeletar()">
+                    @if(!cliente.deletando){
+                        <button type="button" mat-raised-button color="accent" class="ml-5" (click)="cliente.deletando = true">
                             <mat-icon fontIcon="backspace"></mat-icon>
-                            Limpar
+                            Excluir
                         </button>
                     } @else {
-                        <button mat-raised-button color="accent" class="ml-5" (click)="deletar()">
+                        <button type="button" mat-raised-button color="accent" class="ml-5" (click)="deletar()">
                             <mat-icon fontIcon="question_mark"></mat-icon>
                             Confirmar
                         </button>
-                    }
+                    } 
 
                 </mat-card-actions>
             </mat-card>
