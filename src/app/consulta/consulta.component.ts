@@ -13,22 +13,24 @@ import { Cliente } from '../formulario/cliente';
 import { ClienteService } from '../cliente.service';
 import { Router } from '@angular/router';
 import { query } from '@angular/animations';
+import { CpfFormatPipe } from "../cpf-format.pipe";
 
 
 @Component({
   selector: 'app-consulta',
   standalone: true,
   imports: [
-    FlexLayoutModule, 
-    FormsModule, 
+    FlexLayoutModule,
+    FormsModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
     MatTableModule,
-    CommonModule
-  ],
+    CommonModule,
+    CpfFormatPipe
+],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.scss'
 })
